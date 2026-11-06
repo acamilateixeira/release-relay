@@ -6,6 +6,7 @@
 - [Product and workflows](Product-and-workflows.md)
 - [Architecture and data](Architecture-and-data.md)
 - [GitHub integration](GitHub-integration.md)
+- [API reference](API-reference.md)
 - [Security and privacy](Security-and-privacy.md)
 - [Testing and QA](Testing-and-QA.md)
 - [Deployment and operations](Deployment-and-operations.md)

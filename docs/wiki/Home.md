@@ -10,6 +10,7 @@ O Release Relay ajuda agências a entregar um site com evidências. A entrega re
 | [Product and workflows](Product-and-workflows.md) | Roles, project setup, release review and client handoff. |
 | [Architecture and data](Architecture-and-data.md) | Components, boundaries, entities and state transitions. |
 | [GitHub integration](GitHub-integration.md) | Public Actions evidence, failure handling and release identity. |
+| [API reference](API-reference.md) | Current endpoints, example and error responses. |
 | [Security and privacy](Security-and-privacy.md) | Owner isolation, share links, secrets and release gates. |
 | [Testing and QA](Testing-and-QA.md) | Automated checks, API collection and product acceptance scenarios. |
 | [Deployment and operations](Deployment-and-operations.md) | Environments, publication, monitoring and rollback. |
