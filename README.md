@@ -2,7 +2,9 @@
 
 # Release Relay
 
-**English** · [Português](README.pt-BR.md) · **Status · product design**
+**English** · [Português](README.pt-BR.md) · **Status · local contract demo and Lovable build brief**
+
+[![CI](https://github.com/acamilateixeira/release-relay/actions/workflows/ci.yml/badge.svg)](https://github.com/acamilateixeira/release-relay/actions/workflows/ci.yml)
 
 **Give clients one link that tells them what shipped, what you checked, and what comes next.**
 
@@ -46,4 +48,16 @@ flowchart LR
 
 ## Building with Lovable
 
-Start with the [prototype prompt](docs/lovable-prompt.md), then connect Lovable Cloud and add the GitHub integration. Capture what the agent generated, what changed in review, and which tests verify the result. This repository currently contains the design and build brief. Run commands and a hosted demo belong to the implementation milestone.
+Start with the [prototype prompt](docs/lovable-prompt.md), then connect Lovable Cloud and add the GitHub integration. Capture what the agent generated, what changed in review, and which tests verify the result. The live GitHub integration and Lovable deployment are planned milestones.
+
+## Run the contract demo
+
+Requires Node.js 22. Start the localhost fixture and run its HTTP tests.
+
+```bash
+node demo/server.mjs
+# In another terminal
+node --test demo/server.test.mjs
+```
+
+Import the [Postman collection](docs/postman.collection.json) into Postman or Insomnia. It lists a synthetic workflow, rejects an unverified release, publishes a handoff, and verifies that the revoked link returns 404. This fixture uses memory and a synthetic GitHub result. The Lovable project will add the product UI, authentication, and real integration.

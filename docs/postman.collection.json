@@ -1,0 +1,163 @@
+{
+  "info": {
+    "name": "Release Relay — local handoff contract",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://127.0.0.1:4201"
+    },
+    {
+      "key": "handoffId",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "List explicitly synthetic runs",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/runs",
+        "header": []
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "pm.test('Fixture is labeled', () => { pm.expect(pm.response.json().runs[0].source).to.eql('fixture'); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reject an unverified site",
+      "request": {
+        "method": "POST",
+        "url": "{{baseUrl}}/api/handoffs",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"commit\": \"demo-verified-commit\", \"siteVerified\": false}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 422', () => pm.response.to.have.status(422));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Publish a verified handoff",
+      "request": {
+        "method": "POST",
+        "url": "{{baseUrl}}/api/handoffs",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"commit\": \"demo-verified-commit\", \"siteVerified\": true}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 201', () => pm.response.to.have.status(201));",
+              "pm.collectionVariables.set('handoffId', pm.response.json().id);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Open the snapshot",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/handoffs/{{handoffId}}",
+        "header": []
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "pm.test('Snapshot includes verification', () => { pm.expect(pm.response.json().siteVerified).to.be.true; });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Revoke the link",
+      "request": {
+        "method": "DELETE",
+        "url": "{{baseUrl}}/api/handoffs/{{handoffId}}",
+        "header": []
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Check revoked link is unavailable",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/handoffs/{{handoffId}}",
+        "header": []
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 404', () => pm.response.to.have.status(404));"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

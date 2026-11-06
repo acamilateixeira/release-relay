@@ -2,7 +2,9 @@
 
 # Release Relay
 
-[English](README.md) · **Português** · **Status · desenho de produto**
+[English](README.md) · **Português** · **Status · demo local do contrato e plano para Lovable**
+
+[![CI](https://github.com/acamilateixeira/release-relay/actions/workflows/ci.yml/badge.svg)](https://github.com/acamilateixeira/release-relay/actions/workflows/ci.yml)
 
 **Envie ao cliente um link que mostra o que foi entregue, o que você conferiu e qual é o próximo passo.**
 
@@ -46,4 +48,16 @@ flowchart LR
 
 ## Desenvolvimento com Lovable
 
-Começar pelo [prompt do protótipo](docs/lovable-prompt.md), conectar o Lovable Cloud e adicionar a integração. Registrar o que a IA gerou, o que mudou na revisão e quais testes confirmam o resultado. Hoje o repositório contém o desenho do produto e o roteiro de implementação. Os comandos de execução e a demo entram com o primeiro marco funcional.
+Começar pelo [prompt do protótipo](docs/lovable-prompt.md), conectar o Lovable Cloud e adicionar a integração. Registrar o que a IA gerou, o que mudou na revisão e quais testes confirmam o resultado. A integração real com o GitHub e a publicação no Lovable são os próximos marcos.
+
+## Rodar a demo do contrato
+
+Use Node.js 22. Inicie a demo local e rode os testes HTTP.
+
+```bash
+node demo/server.mjs
+# Em outro terminal
+node --test demo/server.test.mjs
+```
+
+Importe a [coleção Postman](docs/postman.collection.json) no Postman ou Insomnia. Ela lista uma execução fictícia, rejeita uma versão sem revisão, publica a entrega e confere que o link revogado retorna 404. A demo usa memória e um resultado fictício do GitHub. O projeto no Lovable vai adicionar a interface, autenticação e integração real.
