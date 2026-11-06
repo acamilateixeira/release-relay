@@ -6,6 +6,8 @@
 
 [![CI](https://github.com/acamilateixeira/release-relay/actions/workflows/ci.yml/badge.svg)](https://github.com/acamilateixeira/release-relay/actions/workflows/ci.yml)
 
+[Project Wiki](https://github.com/acamilateixeira/release-relay/wiki) · [Versioned documentation](docs/wiki/Home.md)
+
 **Give clients one link that tells them what shipped, what you checked, and what comes next.**
 
 A freelancer shipping a small site has to piece together the GitHub run, the live URL, and the checklist before sending an update. Release Relay puts that evidence in one handoff. The first walkthrough will use [Sorteador](https://acamilateixeira.github.io/sorteador-web/), an Angular app already deployed from GitHub.

@@ -6,6 +6,8 @@
 
 [![CI](https://github.com/acamilateixeira/release-relay/actions/workflows/ci.yml/badge.svg)](https://github.com/acamilateixeira/release-relay/actions/workflows/ci.yml)
 
+[Wiki do projeto](https://github.com/acamilateixeira/release-relay/wiki) · [Documentação versionada](docs/wiki/Home.md)
+
 **Envie ao cliente um link que mostra o que foi entregue, o que você conferiu e qual é o próximo passo.**
 
 Quem entrega um site precisa reunir a execução do GitHub, o endereço publicado e o checklist antes de avisar o cliente. O Release Relay reúne essas evidências em uma entrega. O primeiro roteiro usa o [Sorteador](https://acamilateixeira.github.io/sorteador-web/), um app Angular já publicado a partir do GitHub.
