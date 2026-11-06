@@ -2,7 +2,7 @@
 
 # Release Relay
 
-**English** · [Português](README.pt-BR.md) · **Status · local contract demo and Lovable build brief**
+**English** · [Português](README.pt-BR.md) · **Status · local browser demo and Lovable build in progress**
 
 [![CI](https://github.com/acamilateixeira/release-relay/actions/workflows/ci.yml/badge.svg)](https://github.com/acamilateixeira/release-relay/actions/workflows/ci.yml)
 
@@ -61,5 +61,7 @@ node demo/server.mjs
 # In another terminal
 node --test demo/server.test.mjs
 ```
+
+Open [the local demo](http://127.0.0.1:4201/) and choose **Try the demo**. Switch between sample runs to see the checklist reset, finish the review, open the client link and revoke it. The links work while your local server is running.
 
 Import the [Postman collection](docs/postman.collection.json) into Postman or Insomnia. It lists a synthetic workflow, rejects an unverified release, publishes a handoff, and verifies that the revoked link returns 404. This fixture uses memory and a synthetic GitHub result. The Lovable project will add the product UI, authentication, and real integration.

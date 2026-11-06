@@ -14,4 +14,4 @@
 4. Publish a snapshot. The client page presents only the deliberately shared fields.
 5. Revoke the link from the owner view when access should end. A revoked link returns the same not-found response as an unknown link.
 
-A published snapshot is separate from later edits. A new revision requires a new review and a new snapshot. The local contract proves review, publishing and revocation on one synthetic run. Consult [Testing and QA](Testing-and-QA.md) for the full acceptance sequence.
+A published snapshot is separate from later edits. A new revision requires a new review and a new snapshot. The local contract proves review, publishing and revocation on synthetic runs. Consult [Testing and QA](Testing-and-QA.md) for the full acceptance sequence.

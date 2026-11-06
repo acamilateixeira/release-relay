@@ -2,7 +2,7 @@
 
 | Environment | Use |
 | --- | --- |
-| Local contract fixture | Run request and response scenarios with synthetic data and no account. |
+| Local contract fixture | Use the local browser preview and HTTP contract with synthetic data and no account. |
 | Lovable preview | Review the product UI, Cloud configuration and changes before exposing them to users. |
 | Published pilot | Host the verified product at a shareable URL and test it with agency-owned public projects. |
 

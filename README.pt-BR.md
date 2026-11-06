@@ -2,7 +2,7 @@
 
 # Release Relay
 
-[English](README.md) · **Português** · **Status · demo local do contrato e plano para Lovable**
+[English](README.md) · **Português** · **Status · demo local no navegador e versão Lovable em desenvolvimento**
 
 [![CI](https://github.com/acamilateixeira/release-relay/actions/workflows/ci.yml/badge.svg)](https://github.com/acamilateixeira/release-relay/actions/workflows/ci.yml)
 
@@ -61,5 +61,7 @@ node demo/server.mjs
 # Em outro terminal
 node --test demo/server.test.mjs
 ```
+
+Abra [a demo local](http://127.0.0.1:4201/) e selecione **Try the demo**. Troque de execução para ver a revisão reiniciar, preencha o checklist, abra o link de cliente e revogue. Os links funcionam enquanto o servidor local está ativo.
 
 Importe a [coleção Postman](docs/postman.collection.json) no Postman ou Insomnia. Ela lista uma execução fictícia, rejeita uma versão sem revisão, publica a entrega e confere que o link revogado retorna 404. A demo usa memória e um resultado fictício do GitHub. O projeto no Lovable vai adicionar a interface, autenticação e integração real.

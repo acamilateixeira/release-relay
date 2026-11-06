@@ -1,14 +1,33 @@
 import { randomUUID } from 'node:crypto';
+import { readFileSync } from 'node:fs';
 import { createServer } from 'node:http';
 import { pathToFileURL } from 'node:url';
 
-const run = Object.freeze({
+const runs = Object.freeze([{
   source: 'fixture',
   commit: 'demo-verified-commit',
   workflow: 'Deploy to GitHub Pages',
   conclusion: 'success',
   site: 'https://acamilateixeira.github.io/sorteador-web/',
-});
+}, {
+  source: 'fixture',
+  commit: 'demo-previous-commit',
+  workflow: 'Deploy to GitHub Pages',
+  conclusion: 'success',
+  site: 'https://acamilateixeira.github.io/sorteador-web/',
+}]);
+
+const publicFiles = {
+  '/': ['text/html; charset=utf-8', 'index.html'],
+  '/demo': ['text/html; charset=utf-8', 'index.html'],
+  '/app.js': ['text/javascript; charset=utf-8', 'app.js'],
+  '/styles.css': ['text/css; charset=utf-8', 'styles.css'],
+};
+
+function sendFile(response, status, [type, file]) {
+  response.writeHead(status, { 'Content-Type': type, 'Cache-Control': 'no-store' });
+  response.end(readFileSync(new URL('./public/' + file, import.meta.url)));
+}
 
 function send(response, status, data) {
   response.writeHead(status, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
@@ -32,16 +51,21 @@ export function buildDemo() {
   const handoffs = new Map();
   return createServer(async (request, response) => {
     const [path] = request.url.split('?');
-    if (request.method === 'GET' && path === '/api/runs') {
-      return send(response, 200, { runs: [run] });
+    if (request.method === 'GET') {
+      const publicFile = Object.hasOwn(publicFiles, path) ? publicFiles[path] : null;
+      if (publicFile) return sendFile(response, 200, publicFile);
+      const share = /^\/handoff\/([a-f0-9-]+)$/.exec(path);
+      if (share) return sendFile(response, handoffs.has(share[1]) ? 200 : 404, publicFiles['/']);
+      if (path === '/api/runs') return send(response, 200, { runs });
     }
     if (request.method === 'POST' && path === '/api/handoffs') {
       const review = await readBody(request);
-      if (review?.commit !== run.commit || review.siteVerified !== true) {
+      const run = runs.find((candidate) => candidate.commit === review?.commit);
+      if (!run || review.siteVerified !== true) {
         return send(response, 422, { error: 'verified_commit_required' });
       }
       const id = randomUUID();
-      const handoff = { id, ...run, siteVerified: true };
+      const handoff = { id, ...run, siteVerified: true, reviewedAt: new Date().toISOString() };
       handoffs.set(id, handoff);
       return send(response, 201, handoff);
     }

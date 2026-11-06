@@ -11,7 +11,7 @@ node --test demo/server.test.mjs
 node demo/server.mjs
 ```
 
-In another terminal, run:
+Open <http://127.0.0.1:4201/> and choose **Try the demo** to use the checklist, open the client view and revoke the link. To check the API directly, run:
 
 ```sh
 curl --fail http://127.0.0.1:4201/api/runs

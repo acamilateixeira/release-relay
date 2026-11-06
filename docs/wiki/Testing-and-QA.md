@@ -15,6 +15,10 @@ The integration test starts a disposable HTTP server and verifies that an unrevi
 | Publish the verified commit | HTTP 201 with a handoff ID. |
 | Read and revoke the handoff | HTTP 200 before revocation. HTTP 404 on a subsequent read. |
 
+## Local browser walkthrough
+
+Run `node demo/server.mjs` and open <http://127.0.0.1:4201/demo>. Check the items, switch runs and confirm that the checklist clears. Complete the new review, open the handoff in a separate browser context, revoke it and reload the client page. It should display an unavailable message and return HTTP 404.
+
 ## Lovable acceptance checklist
 
 1. Open the sample in a fresh browser session and confirm it is labeled as a demo.

@@ -8,7 +8,11 @@ test('the selected commit needs review and the handoff can be revoked', async (t
   t.after(() => new Promise((resolve) => server.close(resolve)));
   await once(server, 'listening');
   const origin = 'http://127.0.0.1:' + server.address().port;
+  const page = await fetch(origin + '/demo');
+  assert.equal(page.status, 200);
+  assert.match(page.headers.get('content-type'), /^text\/html/);
   const { runs } = await (await fetch(origin + '/api/runs')).json();
+  assert.equal(runs.length, 2);
   const publish = (commit, siteVerified) => fetch(origin + '/api/handoffs', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -21,6 +25,9 @@ test('the selected commit needs review and the handoff can be revoked', async (t
   const { id } = await response.json();
   const link = origin + '/api/handoffs/' + id;
   assert.equal((await (await fetch(link)).json()).commit, runs[0].commit);
+  const clientPage = origin + '/handoff/' + id;
+  assert.equal((await fetch(clientPage)).status, 200);
   assert.equal((await fetch(link, { method: 'DELETE' })).status, 200);
+  assert.equal((await fetch(clientPage)).status, 404);
   assert.equal((await fetch(link)).status, 404);
 });
